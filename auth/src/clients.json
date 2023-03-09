@@ -1,0 +1,30 @@
+{
+  "clients": [
+    {
+      "id": "example-client-id",
+      "redirectUrls": [
+        "http://localhost:7070"
+      ],
+      "expireIn": 43200,
+      "email": {
+        "allowPattern": "",
+        "blockedPattern": "",
+        "allowedEmails": [],
+        "blockedEmails": ["some@example.com"]
+      },
+      "text": {
+        "orgName":"My Organisation",
+        "applicationName": "Access to some Application",
+        "login": {
+          "infoText": "Enter your email below to get access to this application.",
+          "ctaText": "You will receive a One-Time-Password",
+          "emailPlaceholder": "john.doe@example.com"
+        },
+        "finish": {
+          "ctaText": "Please enter the password you received via email.",
+          "buttonText": "Go to the application"
+        }
+      }
+    }
+  ]
+}

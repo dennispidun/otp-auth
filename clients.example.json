@@ -1,0 +1,25 @@
+{
+  "clients": [
+    {
+      "id": "fsv-altklausuren",
+      "redirectUrls": [
+        "http://localhost:7070"
+      ],
+      "expireIn": 43200,
+      "emailPattern": "",
+      "text": {
+        "orgName":"Fachschaft Informatik",
+        "applicationName": "Altklausuren-Sammlung",
+        "login": {
+          "infoText": "Um sicherzustellen, dass du Studierender der Uni Hildesheim bist, kannst du dich mit folgenden Möglichkeiten authentifizieren.",
+          "ctaText": "Erhalte ein Einmal-Passwort per Uni-Mail",
+          "emailPlaceholder": "example@uni-hildesheim.de"
+        },
+        "finish": {
+          "ctaText": "Dir wurde ein Passwort an deine E-Mail-Adresse gesendet.\nSolltest du dieses Passwort nicht innerhalb von 10 Minuten eingegeben haben, wird dein Anmeldeversuch nicht gewertet und deine eingegebenen Daten gelöscht.",
+          "buttonText": "Weiter zur Altklausuren-Sammlung"
+        }
+      }
+    }
+  ]
+}

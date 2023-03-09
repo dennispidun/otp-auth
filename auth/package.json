@@ -1,0 +1,36 @@
+{
+  "name": "otp-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "prebuild": "npx eslint --fix \"src/**/*.ts\"",
+    "build": "rm -rf ./dist && tsc && cp -r public dist/public",
+    "prestart": "npm run build",
+    "start": "node --require dotenv/config ./dist/app.js",
+    "start:withoutBuild": "node --require dotenv/config ./dist/app.js",
+    "test": "jest --all"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/nodemailer": "^6.4.7",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "nodemailer": "^6.9.1"
+  }
+}

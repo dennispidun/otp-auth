@@ -1,0 +1,20 @@
+.orgName {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.applicationName {
+    font-size: 1.45rem;
+    line-height: 2rem;
+}
+
+.ctaText {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+.codeInput {
+    width: 20rem;
+}
