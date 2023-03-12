@@ -44,7 +44,7 @@ auto-import.
 *.iml
 *.ipr
 
-auth/public/
+auth/public
 
 # CMake
 cmake-build-*/
