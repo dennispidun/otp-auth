@@ -5,7 +5,7 @@
       "redirectUrls": [
         "http://localhost:7070"
       ],
-      "expireIn": 43200,
+      "expiresIn": 43200,
       "email": {
         "allowPattern": "[a-zA-Z0-9.]+@example.com",
         "blockedPattern": "[a-zA-Z0-9.]+@not-allowed.com",

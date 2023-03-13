@@ -9,6 +9,7 @@ Provide either an .env-file at /opt/app/dist/.env or provide the respective envi
 
 ```.env
 TOKEN_SECRET=MySecret123
+TOKEN_VALID_HOURS=720
 PUBLIC_URL=http://localhost:5050
 MAIL_USERNAME=username
 MAIL_PASSWORD=password

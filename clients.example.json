@@ -5,8 +5,12 @@
       "redirectUrls": [
         "http://localhost:7070"
       ],
-      "expireIn": 43200,
-      "emailPattern": "",
+      "expiresIn": 43200,
+      "email": {
+        "allowPattern": "[a-zA-Z0-9.]+@uni-hildesheim.de",
+        "allowedEmails": ["depid@hotmail.de"],
+        "blockedEmails": ["some@example.com"]
+      },
       "text": {
         "orgName":"Fachschaft Informatik",
         "applicationName": "Altklausuren-Sammlung",

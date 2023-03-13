@@ -40,8 +40,6 @@ app.post( "/api/login", (req: Request, res: Response) => {
 
     const redirectUrl = query['redirect_url'] as string
     const mail = req.body["mailAddress"];
-    const secret = SecretsService.generateSecret(mail);
-
     const clientId: string = query['clientId'] as string;
     if (!ClientsService.getClient(clientId)) {
         res.status(400).send();
@@ -59,6 +57,8 @@ app.post( "/api/login", (req: Request, res: Response) => {
         res.status(200).send()
         return;
     }
+
+    const secret = SecretsService.generateSecret(mail);
 
     MailService.sendCode(clientId, 
         mail, 
@@ -88,10 +88,10 @@ app.patch( "/api/login", (req: Request, res: Response) => {
     if (data["mailAddress"]
         && SecretsService.isSecretCorrect(data["mailAddress"], data["secret"])) {
         SecretsService.deleteSecret(data["mailAddress"])
-        const token = generateAccessToken({ email: data["mailAddress"] });
+        const token = generateAccessToken({ email: data["mailAddress"] }, config.expiresIn);
         res.cookie('AUTH_TOKEN', `BEARER ${token}`,
             {
-                maxAge: 30*24*60*60*1000, // expireIn Minutes
+                maxAge: config.expiresIn*60*1000,
             })
             .send("OK")
     } else {
@@ -115,7 +115,7 @@ app.get("/api/client", (req: Request, res: Response) => {
     }
 
     client.email = undefined;
-    client.expireIn = undefined;
+    client.expiresIn = undefined;
     client.redirectUrls = undefined;
 
     res.status(200).json(client)
@@ -132,6 +132,6 @@ app.listen( port, () => {
     console.log( `server started at http://localhost:${ port } on ${process.env.PUBLIC_URL}` );
 });
 
-function generateAccessToken(username: { email: string }) {
-    return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '31d' });
+function generateAccessToken(username: { email: string }, expiresInMinutes: number) {
+    return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: `${expiresInMinutes}m`});
 }

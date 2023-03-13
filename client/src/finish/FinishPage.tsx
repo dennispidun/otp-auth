@@ -33,7 +33,7 @@ const FinishPage = () => {
             return;
         }
 
-        axios.patch(`/api/login?redirect_url=${searchParams.get("redirect_url")}`, {
+        axios.patch(`/api/login?clientId=${searchParams.get("clientId")}&redirect_url=${searchParams.get("redirect_url")}`, {
             mailAddress: searchParams.get("email"),
             secret
         }).then((res) => {
@@ -41,7 +41,7 @@ const FinishPage = () => {
                 window.open(searchParams.get("redirect_url")!, "_self");
             }
         }).catch((err) => {
-            setError("Das Passwort ist leider nicht richtig oder bereits abgelaufen.")
+            setError("The password you provided is wrong or not valid anymore.")
         })
     }
 

@@ -33,7 +33,7 @@ interface EmailConfiguration {
 interface ClientConfiguration {
     id: string
     redirectUrls: string[]
-    expireIn: number
+    expiresIn: number
     email?: EmailConfiguration
     text: ClientTextConfiguration
 }
