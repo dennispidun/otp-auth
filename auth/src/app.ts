@@ -55,6 +55,7 @@ app.post( "/api/login", (req: Request, res: Response) => {
 
     if(ClientsService.isBlocked(clientId, mail)) {
         // explicitly allow without sending any code
+        console.log(`Email: ${mail} - blocked`)
         res.status(200).send()
         return;
     }
@@ -105,7 +106,7 @@ app.get("/api/client", (req: Request, res: Response) => {
     const client = ClientsService.getClient(clientId)
 
     if (!client) {
-        res.status(400).send()
+        res.status(404).send()
         return;
     }
 
@@ -113,16 +114,13 @@ app.get("/api/client", (req: Request, res: Response) => {
     client.expireIn = undefined;
     client.redirectUrls = undefined;
 
-    if (!client) {
-        res.status(404).send()
-    } else {
-        res.status(200).json(client)
-    }
+    res.status(200).json(client)
+
 });
 
 app.use('/', express.static('public'))
 app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 

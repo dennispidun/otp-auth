@@ -35,13 +35,17 @@ interface ClientConfiguration {
 
 class ClientsService {
     getClient(id: string): ClientConfiguration | undefined {
-        return JSON.parse(JSON.stringify((clients.clients as ClientConfiguration[]).find(c => c.id === id)))
+        const clientConfig = (clients.clients as ClientConfiguration[]).find(c => c.id === id)
+
+        if (!clientConfig) {
+            return undefined;
+        }
+
+        return JSON.parse(JSON.stringify(clientConfig))
     }
 
     isRedirectUrlCorrect(id: string, redirectUrl: string): boolean | undefined {
         const config = this.getClient(id);
-        console.log("config:",config)
-        console.log("config.redirectUrls:",config.redirectUrls)
         if (!config || !config.redirectUrls) {
             return undefined;
         }
@@ -59,6 +63,10 @@ class ClientsService {
 
         if (!emailConfig) {
             return false;
+        }
+        
+        if (emailConfig.allowedEmails.find((e => e === email))) {
+            return false
         }
 
         if (emailConfig.blockedPattern && emailConfig.blockedPattern.trim() !== "") {

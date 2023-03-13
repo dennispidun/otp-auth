@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:16.15-alpine3.14
+FROM node:18-alpine as BUILD
 RUN mkdir -p /opt/app
 
 WORKDIR /opt/app/client
@@ -13,5 +13,14 @@ RUN npm install
 COPY ../auth/ /opt/app/auth/
 RUN npm run build
 
+FROM --platform=linux/amd64 node:18-alpine as SERVE
+
+COPY --from=BUILD /opt/app/auth/dist /opt/app/dist
+COPY --from=BUILD /opt/app/auth/package.json /opt/app/package.json
+COPY --from=BUILD /opt/app/auth/package-lock.json /opt/app/package-lock.json
+COPY --from=BUILD /opt/app/auth/node_modules /opt/app/node_modules
+
+WORKDIR /opt/app/dist
+
 EXPOSE 5050
-CMD [ "npm", "run", "start:withoutBuild"]
+CMD [ "nodejs", "--require", "dotenv/config", "app.js"]

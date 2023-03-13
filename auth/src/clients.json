@@ -8,8 +8,8 @@
       "expireIn": 43200,
       "email": {
         "allowPattern": "[a-zA-Z0-9.]+@example.com",
-        "blockedPattern": "",
-        "allowedEmails": [],
+        "blockedPattern": "[a-zA-Z0-9.]+@not-allowed.com",
+        "allowedEmails": ["helloworld@not-allowed.com"],
         "blockedEmails": ["some@example.com"]
       },
       "text": {
