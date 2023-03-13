@@ -11,11 +11,16 @@ interface FinishTextConfiguration {
     buttonText: string
 }
 
+interface EmailTextConfiguration {
+    
+}
+
 interface ClientTextConfiguration {
     orgName: string
     applicationName: string
     login: LoginTextConfiguration
     finish: FinishTextConfiguration
+    email: EmailTextConfiguration
 }
 
 interface EmailConfiguration {

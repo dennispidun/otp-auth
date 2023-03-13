@@ -60,7 +60,11 @@ app.post( "/api/login", (req: Request, res: Response) => {
         return;
     }
 
-    MailService.sendCode(mail, secret, `${process.env.PUBLIC_URL}/login/finish?clientId=${clientId}&redirect_url=${redirectUrl}&email=${mail}&password=${secret}`).then(r => {
+    MailService.sendCode(clientId, 
+        mail, 
+        secret, 
+        `${process.env.PUBLIC_URL}/login/finish?clientId=${clientId}&redirect_url=${redirectUrl}&email=${mail}&password=${secret}`
+        ).then(r => {
         res.status(200).send()
     }).catch((err) => {
         console.log(err)

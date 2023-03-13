@@ -1,13 +1,15 @@
 import {createTestAccount, createTransport, Transporter} from "nodemailer";
+import ClientsService from "./ClientsService";
 
 class MailService {
 
     private transporter: Transporter;
 
     constructor() {
+        const port = Number.parseInt(process.env.MAIL_PORT) || 587
         this.transporter = createTransport({
             host: process.env.MAIL_HOST,
-            port: 587,
+            port,
             secure: false,
             auth: {
                 user: process.env.MAIL_USERNAME,
@@ -17,23 +19,26 @@ class MailService {
 
     }
 
-    async sendCode(mail: string, code: string, finishLink: string) {
+    async sendCode(clientId: string, mail: string, code: string, finishLink: string) {
+        const client = ClientsService.getClient(clientId);
         await this.transporter.sendMail({
-            from: '"Fachschaft Informatik" <pidunden@hu-berlin.de>',
+            from: process.env.MAIL_FROM,
             to: mail,
-            subject: "Einmal-Passwort Altklausuren-Sammlung",
-            text: `Hallo, 
+            subject: `OTP for ${client.text.applicationName}`,
+            text: `Hello, 
 
-                   Du erhältst diese E-Mail, weil Du dich für die Altklausuren-Sammlung angemeldet hast. 
+                   This mail contains the one-time-password for the following application:
+
+                   ${client.text.applicationName} by ${client.text.orgName}
                    
-                   Bitte gehe auf: ${finishLink}
-                   Passwort: ${code}
+                   Click here to activate: ${finishLink}
+                   Password: ${code}
                    
-                   Solltest Du kein Einmal-Passwort angefordert haben, kannst Du dich bei der Fachschaftsvertretung Informatik melden.
+                   If you have not requested a one-time password, you can contact ${client.text.orgName}.
                    
-                   Viele Grüße,
+                   Yours sincerely,
                    
-                   Deine Fachschaftsvertretung Informatik 💻`.trim().replace(/[^\S\r\n]{2,}/g, ""),
+                   ${client.text.orgName}`.trim().replace(/[^\S\r\n]{2,}/g, ""),
         });
     }
 
